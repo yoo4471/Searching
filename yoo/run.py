@@ -42,7 +42,7 @@ class NaverBlog():
         print('keyword = ' + self.keyword)
         print('max_page = ' + self.max_page)
         print('contents = ' + self.contents)
-        print('send_interval = ' + self.send_interval)
+        print('send_interval = ' + str(self.send_interval))
     def parsing(self):
         self.driver = webdriver.Chrome(self.chromedriver_path)
         self.driver.implicitly_wait(3)
@@ -104,7 +104,7 @@ class NaverBlog():
         self.init()
         self.print_init()
         self.parsing()
-        self.send_gift() 
+        self.send_gift()
 
 naver = NaverBlog()
 naver.do_parsing_send_gift()
