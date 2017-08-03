@@ -11,6 +11,7 @@ class NaverBlog():
         self.keyword = ''
         self.max_page = 0
         self.contents= ''
+        self.send_interval = 0
         self.driver = None
 
     def init(self):
@@ -32,6 +33,8 @@ class NaverBlog():
                 self.max_page = line_split[1]
             elif line_split[0] == 'contents':
                 self.contents = line_split[1]
+            elif line_split[0] == 'send_interval':
+                self.send_interval = int(line_split[1])
     def print_init(self):
         print('id = ' + self.id)
         print('password = ' + self.password)
@@ -39,6 +42,7 @@ class NaverBlog():
         print('keyword = ' + self.keyword)
         print('max_page = ' + self.max_page)
         print('contents = ' + self.contents)
+        print('send_interval = ' + self.send_interval)
     def parsing(self):
         self.driver = webdriver.Chrome(self.chromedriver_path)
         self.driver.implicitly_wait(3)
@@ -94,14 +98,13 @@ class NaverBlog():
             self.driver.find_element_by_xpath('//*[@id="footer"]/input').click()
             self.driver.close()
             self.driver.switch_to_window(driver_origin)
-            self.driver.implicitly_wait(2)
+            self.driver.implicitly_wait(self.send_interval)
 
     def do_parsing_send_gift(self):
         self.init()
         self.print_init()
         self.parsing()
-        self.send_gift()
-
+        self.send_gift() 
 
 naver = NaverBlog()
 naver.do_parsing_send_gift()

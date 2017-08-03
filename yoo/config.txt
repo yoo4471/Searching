@@ -1,10 +1,13 @@
 id=sol2590
 password=dofldofl12
 
-chromedriver_path=/Users/yoo/python/yoo/chromedriver
+chromedriver_path=/Users/yoo/python/Searching/yoo/chromedriver_mac
 
 keyword=똥
 
 max_page=2
 
-contents=반갑습니다. 좋은 하루 보네세요.
+send_interval=0
+
+contents=반갑습니다. 좋은 하루 보내세요.
+
