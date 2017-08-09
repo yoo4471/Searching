@@ -20,6 +20,7 @@ class NaverBlog():
         self.contents= ''
         self.driver = None
         self.send_interval = 0
+        self.file_path = ''
         self.init_initialized = False
 
     def start(self):
@@ -102,13 +103,17 @@ class NaverBlog():
                 self.contents = line_split[1]
             elif line_split[0] == 'send_interval':
                 self.send_interval = int(line_split[1])
+            elif line_split[0] == 'file_path':
+                self.file_path = line_split[1]
 
 
     def print_init(self):
+        print('keyword = ' + self.keyword)
+        print('')
         print('id = ' + self.id)
         print('password = ' + self.password)
         print('chromedriver_path = ' + self.chromedriver_path)
-        print('keyword = ' + self.keyword)
+        print('file_path = ' + self.file_path)
         print('max_page = ' + self.max_page)
         print('send_interval = ' + str(self.send_interval))
         print('contents = ' + self.contents)
@@ -128,6 +133,7 @@ class NaverBlog():
                 print('')
                 break
             num = num + 15
+        self.save_file(self.keyword, len(self.blog_ids))
         self.driver.quit()
 
     def do_parsing(self, url):
@@ -148,6 +154,14 @@ class NaverBlog():
                 blog_ids.append(blog_id)
 
         return blog_ids
+
+    def save_file(self, keyword, nkeyword):
+        path = self.file_path + '/' + keyword + '_' + str(nkeyword)
+        f = open(path, 'w')
+        for blog_id in self.blog_ids:
+            f.write(blog_id+'\n')
+        f.close()
+        print('blog_ids saved to ' + path)
 
     def send_gift(self):
         self.driver = webdriver.Chrome(self.chromedriver_path)
