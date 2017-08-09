@@ -156,7 +156,7 @@ class NaverBlog():
         return blog_ids
 
     def save_file(self, keyword, nkeyword):
-        path = self.file_path + '/' + keyword + '_' + str(nkeyword)
+        path = self.file_path + keyword + '_' + str(nkeyword)
         f = open(path, 'w')
         for blog_id in self.blog_ids:
             f.write(blog_id+'\n')
