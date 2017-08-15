@@ -1,7 +1,25 @@
 import sys, os, time, signal
-from selenium import webdriver
-from selenium.webdriver.common.alert import Alert
-from bs4 import BeautifulSoup as bs
+from subprocess import check_output
+check_output("./Scripts/pip install beautifulsoup4", shell=True)
+
+try:
+    from selenium import webdriver
+except ImportError, e:
+    check_output("./Scripts/pip install beautifulsoup4", shell=True)
+    from selenium import webdriver
+
+try:
+    from selenium.webdriver.common.alert import Alert
+except ImportError, e:
+    print('Error : rom selenium.webdriver.common.alert import Alert')
+
+try:
+    from bs4 import BeautifulSoup as bs
+except ImportError, e:
+    check_output("./Scripts/pip install beautifulsoup4", shell=True)
+    from bs4 import BeautifulSoup as bs
+
+
 
 
 def signal_handler(signal, frame):
@@ -133,6 +151,7 @@ class NaverBlog():
                 print('')
                 break
             num = num + 15
+        self.blog_ids = list(set(self.blog_ids))
         self.save_file(self.keyword, len(self.blog_ids))
         self.driver.quit()
 
@@ -156,7 +175,7 @@ class NaverBlog():
         return blog_ids
 
     def save_file(self, keyword, nkeyword):
-        path = self.file_path + keyword + '_' + str(nkeyword)
+        path = self.file_path + keyword + '_' + str(nkeyword) + '.txt'
         f = open(path, 'w')
         for blog_id in self.blog_ids:
             f.write(blog_id+'\n')
