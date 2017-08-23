@@ -1,22 +1,32 @@
 import sys, os, time, signal
 from subprocess import check_output
-check_output("./Scripts/pip install beautifulsoup4", shell=True)
+try:
+    c_dir = check_output("chdir", shell=True).decode()
+    c_dir = c_dir[:c_dir.find('\r\n')]
+except:
+    print('maybe you are in mac')
+
+try:
+    check_output(c_dir + "\\Scripts\\pip install html5lib", shell=True)
+except:
+    pass
 
 try:
     from selenium import webdriver
-except ImportError, e:
-    check_output("./Scripts/pip install beautifulsoup4", shell=True)
+except:
+    check_output(c_dir + "\\Scripts\\pip install selenium", shell=True)
     from selenium import webdriver
+
 
 try:
     from selenium.webdriver.common.alert import Alert
-except ImportError, e:
+except:
     print('Error : rom selenium.webdriver.common.alert import Alert')
 
 try:
     from bs4 import BeautifulSoup as bs
-except ImportError, e:
-    check_output("./Scripts/pip install beautifulsoup4", shell=True)
+except:
+    check_output(c_dir + "\\Scripts\\pip install beautifulsoup4", shell=True)
     from bs4 import BeautifulSoup as bs
 
 
@@ -178,7 +188,7 @@ class NaverBlog():
         path = self.file_path + keyword + '_' + str(nkeyword) + '.txt'
         f = open(path, 'w')
         for blog_id in self.blog_ids:
-            f.write(blog_id+'\n')
+            f.write(blog_id+'@naver.com\n')
         f.close()
         print('blog_ids saved to ' + path)
 
